@@ -1,4 +1,4 @@
-#include <stdio.h>
+ #include <stdio.h>
 void swap(int *a,int *b)
 {
     int temp;
@@ -6,35 +6,36 @@ void swap(int *a,int *b)
     *a=*b;
     *b=temp;
 }
-partition(arr[],int l, int h)
+int partition(int arr[],int l, int h)
 {
-    int pivot=l;
+    int pivot=arr[l];
     int i=l;
-    int j=h;
+    int j=h+1;
     while(i<j)
     {
         do
         {
             i++;
-        }while(i<=pivot);
+        }while(arr[i]<=pivot);
         do
         {
             j--;
-        }while(j>pivot);
-        if(i>j)
+        }while(arr[j]>pivot);
+        if(i<j)
         {
-            swap(arr[i],arr[j]);
+            swap(&arr[i],&arr[j]);
         }
     }
-    swap(arr[l],arr[j]);
+     arr[l]=arr[j];
+     arr[j]=pivot;
     return j;
 }
-quick_sort(int arr[],int l,int h)
+void quick_sort(int arr[],int l,int h)
 {   int j;
     if(l<h)
     {
         j=partition(arr,l,h);
-        quick_sort(arr,l,j);
+        quick_sort(arr,l,j-1);
         quick_sort(arr,j+1,h);
     }
     
@@ -51,5 +52,7 @@ int main()
       scanf("%d",&arr[i]);  
     }
     quick_sort(arr,0,n-1);
+    for (i=0;i<n;i++) 
+        printf("%d ",arr[i]);
     return 0;
 }
