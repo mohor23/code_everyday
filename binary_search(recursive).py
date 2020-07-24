@@ -5,9 +5,9 @@ def binary_search(arr,l,h,number):
         if(arr[mid]==number):
             return mid
         elif(number<arr[mid]):
-            return(arr,l,mid-1,number)
+            binary_search(arr,l,mid-1,number)
         else:
-            return(arr,mid+1,h,number)
+            binary_search(arr,mid+1,h,number)
     else:
         return -1
 arr=[]
