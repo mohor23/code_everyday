@@ -599,6 +599,319 @@ print(c2.wheels)
 
 
 # In[ ]:
+types of methords
+class student:
+    college='kiit'#class or static variable
+    def __init__(self,m1,m2,m3):
+        self.m1=m1#instance variable
+        self.m2=m2
+        self.m3=m3
+    def avg(self):# instance methord as it is using self
+        return(self.m1+self.m2+self.m3)/3
+    @classmethod #decorator needed to use while using class methord
+    def info(cls):#class methord using cls
+        return cls.college
+    @staticmethod
+    def func():# static method which doesnt involve any static or class method
+        print("this is static methord which doesnt use any instance or class variable")
+s1=student(23,98,65)
+s2=student(34,78,65)
+print(s1.info())
+student.func()
+        
+kiit
+this is static methord which doesnt use any instance or class variable
+class student:
+    
+    def __init__(self,name,rollno):
+        self.name=name#instance variable
+        self.rollno=rollno
+        self.lap=self.laptop()#creating object of inner class inside outer class
+    def show(self):
+        print(self.name,self.rollno)
+    class laptop:
+        def __init__(self,company):
+            self.company="HP"
+s1=student("rahul",15)
+s1.lap.company
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-48-37480550b8f1> in <module>
+     10         def __init__(self,company):
+     11             self.company="HP"
+---> 12 s1=student("rahul",15)
+     13 s1.lap.company
+
+<ipython-input-48-37480550b8f1> in __init__(self, name, rollno)
+      4         self.name=name#instance variable
+      5         self.rollno=rollno
+----> 6         self.lap=self.laptop()#creating object of inner class inside outer class
+      7     def show(self):
+      8         print(self.name,self.rollno)
+
+TypeError: __init__() missing 1 required positional argument: 'company'
+
+inheritance
+#multilevel inheritance
+class A:
+    def feature1(self):
+        print("this is feature 1")
+class B(A):
+    def feature2(self):
+        print("this is feature 2")#inheriting class A
+class C(B):
+    def feature3(self):
+        print("this is feature 3")#inheriting class B
+​
+        
+c=C()
+c.feature1()
+c.feature2()
+c.feature3()
+​
+​
+this is feature 1
+this is feature 2
+this is feature 3
+#multiple inheritance
+class A:
+    def feature1(self):
+        print("this is feature 1")
+class B:
+    def feature2(self):
+        print("this is feature 2")
+class C(A,B):
+    def feature3(self):
+        print("this is feature 3")#inheriting class A &B
+​
+        
+c=C()
+c.feature1()
+c.feature2()
+c.feature3()
+this is feature 1
+this is feature 2
+this is feature 3
+constructor in inheritance
+class A:
+    def __init__(self):
+        print("in A init")
+    def feature1(self):
+        print("this is feature 1")
+class B(A):
+    def feature2(self):
+        print("this is feature 2")
+b=B()
+in A init
+#when B init is there it will exucute that.. if it cant find any init in B then will go to A init
+class A:
+    def __init__(self):
+        print("in A init")
+    def feature1(self):
+        print("this is feature 1")
+class B(A):
+    def __init__(self):
+        print("in B init")
+    def feature2(self):
+        print("this is feature 2")
+b=B()
+in B init
+#to access both the init at the same time
+class A:
+    def __init__(self):
+        print("in A init")
+    def feature1(self):
+        print("this is feature 1")
+class B(A):
+    def __init__(self):
+        super().__init__()
+        print("in B init")
+    def feature2(self):
+        print("this is feature 2")
+b=B()
+in A init
+in B init
+#methord resolution order(MRO)
+class A:
+    def __init__(self):
+        print("in A init")
+    def feature1(self):
+        print("this is feature 1")
+class B:
+    def __init__(self):
+        print("in B init")
+    def feature2(self):
+        print("this is feature 2")
+class C(A,B):
+    def __init__(self):
+        super().__init__()# iit will print the A because of MRO
+        print("in C init")
+    def feature3(self):
+        print("this is feature 3")#inheriting class A &B
+​
+        
+c=C()
+​
+in A init
+in C init
+duck typing polymorhism
+class jupyter:
+    def execute(self):
+        print("type checking")
+        print("execution")
+class pycharm:
+    def execute(self):
+        print("compiling")
+        print("convention check")
+        
+class coumpter:
+    def code(self,ide):
+        ide.execute()
+ide1=jupyter()
+ide2=pycharm()
+l=coumpter()
+l.code(ide1)
+l.code(ide2)
+type checking
+execution
+compiling
+convention check
+operator overloading
+a=6
+b=7
+print(a+b)# the below is wt actually happens when we do any sum
+print(int.__add__(a,b))
+13
+13
+class student:
+    def __init__(self,m1,m2):
+        self.m1=m1
+        self.m2=m2
+    def __add__(self,other):# operator overloading
+        m1=self.m1+other.m1
+        m2=self.m2=other.m2
+        a=student(m1,m2)
+        return a
+s1=student(56,89)
+s2=student(67,90)
+s3=s1+s2
+print(s3.m1)
+123
+methord overloading
+class a:
+    def sum(self,a=None,b=None,c=None):
+        c=0
+        if a!=None and b!=None and c!=None:
+            c=a+b+c
+        elif a!=None and b!=none:
+            c=a+b
+        else:
+            c=a
+        return c
+s1=a()
+print(s1.sum(5,9))
+14
+method overridding
+class A():
+    def show(self):
+        print("in class A")
+class B(A):
+    pass
+t=B()
+t.show()
+in class A
+class A():
+    def show(self):
+        print("in class A")
+class B(A):
+    def show(self):
+        print("in class B")#here show methord is overridding the show methord of class A,,,, refer to previous program
+t=B()
+t.show()
+in class B
+abstract method
+from abc import ABC,abstractmethod
+class computer(ABC):
+    @abstractmethod
+    def process(self):
+        pass
+com=computer()# this error is because we cannot create object of abstract method
+com.process
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-32-30b1035ee4b3> in <module>
+      4     def process(self):
+      5         pass
+----> 6 com=computer()
+      7 com.process
+
+TypeError: Can't instantiate abstract class computer with abstract methods process
+
+from abc import ABC,abstractmethod
+class computer(ABC):
+    @abstractmethod
+    def process(self):
+        pass
+class laptop(computer):
+    def process(self):
+        print("its running")
+com1=laptop()
+com1.process()
+its running
+iterator
+num=[1,2,3,4]
+it=iter(num)
+print(it.__next__)
+print(next(it))
+print(next(it))
+<method-wrapper '__next__' of list_iterator object at 0x000001867675F248>
+1
+2
+class topten:
+    def __init__(self):
+        self.num=1
+    def __iter__(self):
+        return self
+    def __next__(self):
+        if self.num<=10:
+            val=self.num
+            self.num+=1
+            return val
+        else:
+            raise StopIteration
+d=topten()
+for i in d:
+    print(i)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+generators
+ def c():
+    n=1
+    while n<10:
+        sq=n*n
+        yield sq
+        n+=1
+values=c()
+for i in values:
+    print(i)
+    
+1
+4
+9
+16
+25
+36
+49
+64
+81
 
 
 
